@@ -3,6 +3,7 @@
 > create project by vue-cli version 3, support typescript, pwa and etc
 
 [![Build Status](https://travis-ci.org/Raoul1996/vote-ts-vue.svg?branch=master)](https://travis-ci.org/Raoul1996/vote-ts-vue)
+[![codecov](https://codecov.io/gh/Raoul1996/vote-ts-vue/branch/master/graph/badge.svg)](https://codecov.io/gh/Raoul1996/vote-ts-vue)
 
 ## Usage
 
@@ -33,6 +34,7 @@ more configure see the [vue.config.js](vue.config.js)
 
 1. [Vue Cli](https://cli.vuejs.org/guide/cli-service.html)
 2. [qshell](https://github.com/qiniu/qshell)
+3. [codecov](https://codecov.io/)
 
 ## Note 
 
@@ -64,3 +66,9 @@ chmod +x qshell
 * configure the [qshell.json](.qshell.json) for `qupload`, here is the [document](https://github.com/qiniu/qshell/blob/master/docs/qupload.md)
 
 * set the `baseUrl` in [vue.config.js](vue.config.js), which you can get the static resource via this domain form your qiniu bucket
+
+### configure coverage on coverage.io
+
+- [example-typescript](https://github.com/codecov/example-typescript)
+
+
