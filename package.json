@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
+    "build": "vue-cli-service build --report",
+    "lint": "vue-cli-service lint --config .eslintrc.js --ext .ts src",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e"
   },
@@ -20,7 +20,7 @@
   "devDependencies": {
     "@types/chai": "^4.1.0",
     "@types/mocha": "^2.2.46",
-    "@vue/cli-plugin-babel": "^3.0.0-beta.15",
+    "@vue/cli-plugin-babel": "^3.0.0-rc.2",
     "@vue/cli-plugin-e2e-cypress": "^3.0.0-beta.15",
     "@vue/cli-plugin-eslint": "^3.0.0-rc.2",
     "@vue/cli-plugin-pwa": "^3.0.0-beta.15",
@@ -44,6 +44,21 @@
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
+  "description": "",
+  "main": "src/main.ts",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Raoul1996/vote-ts-vue.git"
+  },
+  "author": "Raoul1996 <baobaozhou199606@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Raoul1996/vote-ts-vue/issues"
+  },
+  "homepage": "https://github.com/Raoul1996/vote-ts-vue#readme",
   "lint-staged": {
     "*.ts": [
       "vue-cli-service lint",
@@ -59,20 +74,5 @@
       "vue-cli-service lint",
       "git add"
     ]
-  },
-  "main": "src/main.ts",
-  "directories": {
-    "test": "tests"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Raoul1996/vote-ts-vue.git"
-  },
-  "author": "Raoul1996 <baobaozhou199606@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Raoul1996/vote-ts-vue/issues"
-  },
-  "homepage": "https://github.com/Raoul1996/vote-ts-vue#readme",
-  "description": ""
+  }
 }
