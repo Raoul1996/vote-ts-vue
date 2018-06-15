@@ -19,6 +19,22 @@ module.exports = {
   transpileDependencies: [],
   // generate the map file
   productionSourceMap: true,
+  parallel: require('os').cpus().length > 1,
+  // pwa: {
+  //   name: 'My App',
+  //   themeColor: '#4DBA87',
+  //   msTileColor: '#000000',
+  //   appleMobileWebAppCapable: 'yes',
+  //   appleMobileWebAppStatusBarStyle: 'black',
+  //
+  //   // configure the workbox plugin
+  //   workboxPluginMode: 'InjectManifest',
+  //   workboxOptions: {
+  //     // swSrc is required in InjectManifest mode.
+  //     swSrc: 'dev/sw.js',
+  //     // ...other Workbox options...
+  //   }
+  // },
   // devServer config
   devServer: {
     port: 8080,
