@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --report",
-    "lint": "vue-cli-service lint --config .eslintrc.js --ext .ts src",
+    "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e"
   },

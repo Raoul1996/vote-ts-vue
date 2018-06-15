@@ -1,6 +1,8 @@
 language: node_js
+sudo: false
 node_js:
 - '8.11.2'
+- '10'
 before_install:
 # 创建 .ssh 目录，在用户目录下
 - mkdir -p  ~/.ssh/
@@ -22,10 +24,13 @@ before_script:
 #- codecov
 script:
 # 编译项目到 dist 文件夹
-- npm run build
+- npm run lint
+- npm run test:unit
 # 5. 执行 script 脚本成功之后执行
 # 6. 最后执行
 after_success:
+- npm run build
+- codecov
 - ./qshell qupload 16 .qshell.json
 # 移动到打包好的目录中
 - cd ./dist
@@ -40,4 +45,5 @@ branches:
   - master
 env:
   global:
-    - server=ubuntu@123.207.252.230
+    - server="ubuntu@123.207.252.230"
+    - CODECOV_TOKEN="1b525199-31ab-48a5-977c-1941dfe3d9ee"
