@@ -25,7 +25,7 @@ yarn global add @vue/cli
 npm i
 
 # serve with hot reload at localhost:8080
-npm run dev
+npm run serve
 ```
 
 more configure see the [vue.config.js](vue.config.js)
@@ -70,5 +70,3 @@ chmod +x qshell
 ### configure coverage on coverage.io
 
 - [example-typescript](https://github.com/codecov/example-typescript)
-
-
