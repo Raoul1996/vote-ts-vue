@@ -1,0 +1,45 @@
+language: node_js
+node_js:
+- '8.11.2'
+- '10'
+before_install:
+# 创建 .ssh 目录，在用户目录下
+- mkdir -p  ~/.ssh/
+- openssl aes-256-cbc -K $encrypted_e3c690301280_key -iv $encrypted_e3c690301280_iv
+  -in id_rsa.enc -out ~/.ssh/id_rsa -d
+# 更改目录权限
+- chmod 600 ~/.ssh/id_rsa
+# 将目标服务器（将要部署的服务器）的 ip 添加到 config 中，使其支持免密登陆
+- echo -e "Host 123.207.252.230 \n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+- chmod +x qshell
+./qshell account $ak $sk
+install:
+- npm i -g codecov
+- npm install
+# 3. 在执行 script 中脚本之前执行
+before_script:
+# 4. 执行 script 中的脚本
+- npm run ci
+- codecov
+script:
+# 编译项目到 dist 文件夹
+- npm run build
+# 5. 执行 script 脚本成功之后执行
+# 6. 最后执行
+after_success:
+./qshell qupload 5 qshell.json
+# 移动到打包好的目录中
+- cd ./dist
+-
+# scp
+
+#- scp index.html ubuntu@123.207.252.230:~/
+#- ssh ubuntu@123.207.252.230 'mkdir -p /usr/share/nginx/html/votes && mv ~/index.html /usr/share/nginx/html/votes'
+# - ssh ubuntu@123.207.252.230 'cd /usr/share/nginx/html/votes && tar -jxf index.html && rm -rf index.html'
+after_script:
+
+branches:
+  only:
+  - master
+env:
+  global:
