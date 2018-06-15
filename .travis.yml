@@ -26,7 +26,7 @@ script:
 # 5. 执行 script 脚本成功之后执行
 # 6. 最后执行
 after_success:
-- ./qshell qupload 16 qshell.json
+- ./qshell qupload 16 .qshell.json
 # 移动到打包好的目录中
 - cd ./dist
 # scp
