@@ -15,6 +15,7 @@
     "quotemark": [true, "single"],
     "semicolon": false,
     "trailing-comma": false,
+    "space-before-function-paren": true,
     "indent": [true, "spaces", 2],
     "interface-name": false,
     "ordered-imports": false,

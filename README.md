@@ -4,6 +4,31 @@
 
 [![Build Status](https://travis-ci.org/Raoul1996/vote-ts-vue.svg?branch=master)](https://travis-ci.org/Raoul1996/vote-ts-vue)
 
+## Usage
+
+### Install
+
+```shell
+npm i -g @vue/cli
+```
+or by yarn
+
+```shell
+yarn global add @vue/cli
+```
+
+### Run project
+
+```shell
+# install dependencies
+npm i
+
+# serve with hot reload at localhost:8080
+npm run dev
+```
+
+more configure see the [vue.config.js](vue.config.js)
+
 ## Resource
 
 1. [Vue Cli](https://cli.vuejs.org/guide/cli-service.html)
