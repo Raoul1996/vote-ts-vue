@@ -11,7 +11,7 @@
   "rescan_local": true,
   "skip_file_prefixes": "test,demo,",
   "skip_path_prefixes": "hello/,temp/",
-  "skip_fixed_strings": ".svn,.git",
+  "skip_fixed_strings": ".svn,.git,.html",
   "skip_suffixes": ".DS_Store,.exe",
   "log_file": "upload.log",
   "log_level": "info",
