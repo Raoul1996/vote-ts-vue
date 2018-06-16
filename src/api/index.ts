@@ -15,11 +15,11 @@ const instance = Axios.default.create({
   transformResponse: [
     (data) => {
       try {
-        data = JSON.parse(data);
+        data = JSON.parse(data)
       } catch (e) {
-        data = {};
+        data = {}
       }
-      return data;
+      return data
     },
   ],
 
