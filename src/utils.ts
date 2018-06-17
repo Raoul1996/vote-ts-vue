@@ -89,7 +89,7 @@ export function goto (that: any, path: string, fix: boolean = true) {
  * @param ms 延时时间
  * @returns {Promise.<void>}
  */
-export async function lazyGoto (that: any, path: string, ms: number = 1000) {
+export const lazyGoto = async (that: any, path: string, ms: number = 1000) => {
   await sleep(ms)
   goto(that, path)
 }
