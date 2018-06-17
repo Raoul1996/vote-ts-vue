@@ -14,7 +14,9 @@
   "rules": {
     "quotemark": false,
     "semicolon": false,
+    "arrow-parens":false,
     "trailing-comma": false,
+    "no-shadowed-variable": false,
     "space-before-function-paren": true,
     "indent": [true, "spaces", 2],
     "interface-name": false,

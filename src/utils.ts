@@ -75,7 +75,7 @@ export function query2url (url: string, query: any) {
 export function goto (that: any, path: string, fix: boolean = true) {
   // 修复不是绝对地址的情况，需要根据 fix 的值进行判断
   if (path[0] !== '/' && fix) {
-    let pathArr = path.split('')
+    const pathArr: string[] = path.split('')
     pathArr.unshift('/')
     path = pathArr.join('')
   }

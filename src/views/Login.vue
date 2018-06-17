@@ -1,44 +1,38 @@
 <template lang="pug">
     .login
-        h1.title Sign in to Voter
-        el-form.card-border(v-bind:model="login", ref="login", v-bind:rules="rules")
+        h1.title {{title}}
+        el-form.card-border(:model="login", ref="login", :rules="rules")
             el-form-item(label="email", prop="email")
                 el-input(v-model="login.email", placeholder="请输入邮箱")
-                <!--el-select(v-model="login.email", filterable, placeholder="请输入邮箱地址" class="el-input", @change="ChangeConsole")-->
-                <!--el-option(v-for="item in login.options", :key="item.value", :label="item.label", :value="item.value")-->
-            <!--el-form-item(label="mobile", prop="mobile")-->
-            <!--el-input(v-model="login.mobile" placeholder="请输入手机号")-->
             el-form-item(label="password", prop="pwd")
-                el-input(@keyup.native.enter="submitForm('login')", type="password", v-model="login.pwd", placeholder="请输入密码", auto-complete="on")
+                el-input(type="password", v-model="login.pwd", placeholder="请输入密码", auto-complete="on")
             el-form-item(label="captcha", prop="captcha")
                 div.captcha-wrapper
-                    el-input.captcha-input(v-model="login.captcha", placeholder="请输入验证码", type="text", )
-                    captcha.captcha
+                    el-input.captcha-input(@keyup.native.enter="submitLoginForm", v-model="login.captcha", placeholder="请输入验证码", type="text")
+                    captcha.captcha(:version="version")
             el-form-item
                 router-link.forget(to="forget") Forgot password?
             el-form-item
-                el-button.login-button(type="primary", size="middle", @click="submitForm('login')")
-                    | Sign in
-        .register-form
-            | New to Voter?
-            router-link.register(to="register")
-                | Create an account.
+                el-button.login-button(type="primary", size="middle", @click="submitLoginForm") Sign in
+        .register-form New to Voter?
+            router-link.register(to="register") Create an account.
 </template>
 <script lang="ts">
-  import {Component, Vue, Watch} from 'vue-property-decorator'
+  import {Component, Vue} from 'vue-property-decorator'
   import {Action, State, Mutation} from 'vuex-class'
   import {UserInfo} from '@/store/state'
   import {lazyGoto} from '@/utils'
-  import Captcha from '../components/captcha'
+  import Captcha from '@/components/captcha.vue'
 
   @Component({
     components: {Captcha}
   })
   export default class Login extends Vue {
-    @Action public loginAction!: (data: { email: string; pwd: string; captcha: string }) => void
+    @Action public loginAction!: (data: { email: string; pwd: string; captcha: string }) => any
     @Mutation private loginLoading!: () => void
-    @State private user: UserInfo
-    private login: object = {
+    @State private user!: UserInfo
+    private version: number = 1
+    private login: any = {
       email: '',
       pwd: null,
       captcha: '',
@@ -58,10 +52,7 @@
       ]
     }
     private msgFlag: boolean = true
-
-    @Watch('email')
-    private changeEmail (val: string, old: string) {
-    }
+    private title: string = 'Sign in to Voter'
 
     private mounted () {
       if (this.msgFlag) {
@@ -74,17 +65,10 @@
       }
     }
 
-    private submitForm (formName) {
-      const {email, pwd, captcha} = this.login
-      this.loginAction({email, pwd, captcha}).then(async () => {
-        this.$message({
-          type: 'success',
-          showClose: true,
-          message: 'login successful'
-        })
-        await lazyGoto(this, 'vote')
-      })
-      this.$refs[formName].validate(async (valid) => {
+    private submitLoginForm () {
+      (this.$refs.login as any).validate(async (valid: boolean) => {
+        const {email, pwd, captcha} = this.login
+        this.version = this.version + 1
         if (valid) {
           this.loginAction({email, pwd, captcha}).then(async () => {
             this.$message({
