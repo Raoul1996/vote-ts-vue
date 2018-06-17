@@ -42,7 +42,7 @@ more configure see the [vue.config.js](vue.config.js)
 
 * initial repo by travis command tools
 ```shell
-# travis login via github username and password
+# travis login via github email and password
 travis login
 
 # inital a travis project

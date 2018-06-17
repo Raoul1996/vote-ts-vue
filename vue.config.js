@@ -40,9 +40,18 @@ module.exports = {
     port: 8080,
     proxy: {
       '/api': {
-        target: 'https://api.raoul1996.cn',
+        target: 'http://127.0.0.1:7001',
         ws: false,
-        changeOrigin: true
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api/': '',     // rewrite path
+          '^/api/remove/path': '/path'           // remove base path
+        },
+        router: {
+          // when request.headers.host == 'dev.localhost:3000',
+          // override target 'http://www.example.org' to 'http://localhost:8000'
+          'dev.localhost:3000': 'http://localhost:8000'
+        }
       }
     }
   }

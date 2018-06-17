@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import {imgSrcToBlob} from 'blob-util';
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -11,9 +13,19 @@ export default new Router({
       component: () => import('./views/Home.vue')
     },
     {
+      path: '/login',
+      name: 'login',
+      component: () => import('./views/Login.vue')
+    },
+    {
       path: '/about',
       name: 'about',
       component: () => import('./views/About.vue')
+    },
+    {
+      path: '*',
+      name: 'not-find',
+      component: () => import('./views/404.vue')
     }
   ]
 })
