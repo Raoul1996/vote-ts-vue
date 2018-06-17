@@ -6,8 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --report",
     "lint": "vue-cli-service lint",
-    "test:unit": "NODE_ENV=test vue-cli-service test:unit",
-    "test:e2e": "NODE_ENV=test vue-cli-service test:e2e"
+    "test:unit": "vue-cli-service test:unit",
+    "test:e2e": "NODE_ENV=test vue-cli-service test:e2e --headless"
   },
   "dependencies": {
     "async-validator": "^1.8.2",

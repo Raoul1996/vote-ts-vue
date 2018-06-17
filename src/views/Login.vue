@@ -23,7 +23,6 @@
   import {UserInfo} from '@/store/state'
   import {lazyGoto} from '@/utils'
   import Captcha from '@/components/captcha.vue'
-
   @Component({
     components: {Captcha}
   })
