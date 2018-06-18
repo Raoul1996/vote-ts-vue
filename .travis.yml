@@ -16,7 +16,8 @@ before_install:
 - chmod +x qshell
 - ./qshell account $ak $sk
 install:
-- npm i -g codecov npm
+# - npm i -g codecov
+- npm i -g npm
 - npm install
 # 3. 在执行 script 中脚本之前执行
 before_script:
@@ -32,7 +33,7 @@ script:
 # 6. 最后执行
 after_success:
 - npm run build
-- codecov -t $CODECOV_TOKEN
+# - codecov -t $CODECOV_TOKEN
 - ./qshell qupload 16 .qshell.json
 # 移动到打包好的目录中
 - cd ./dist

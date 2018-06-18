@@ -3,7 +3,6 @@
 > create project by vue-cli version 3, support typescript, pwa and etc
 
 [![Build Status](https://travis-ci.org/Raoul1996/vote-ts-vue.svg?branch=master)](https://travis-ci.org/Raoul1996/vote-ts-vue)
-[![codecov](https://codecov.io/gh/Raoul1996/vote-ts-vue/branch/master/graph/badge.svg)](https://codecov.io/gh/Raoul1996/vote-ts-vue)
 
 *English is not my native language, please excuse the typing errors.*
 
