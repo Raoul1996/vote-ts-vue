@@ -1,6 +1,6 @@
 import {expect} from 'chai'
 import {shallowMount} from '@vue/test-utils'
-import Captcha from '@/components/captcha.vue'
+import Captcha from '@/components/Captcha.vue'
 
 describe('Captcha.vue', () => {
   it('should render only one img element when passed', () => {

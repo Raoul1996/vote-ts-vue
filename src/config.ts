@@ -1,9 +1,7 @@
 export default {
   url: {
-    baseUrl:
-      process.env.NODE_ENV === 'development'
-        ? '/api/'
-        : 'https://api.raoul1996.cn/',
+    // nginx 配置后端到 api 路由
+    baseUrl: '/api',
   },
   timeout: 5000,
 }

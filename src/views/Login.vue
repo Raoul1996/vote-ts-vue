@@ -22,7 +22,7 @@
   import {Action, State, Mutation} from 'vuex-class'
   import {UserInfo} from '@/store/state'
   import {lazyGoto} from '@/utils'
-  import Captcha from '@/components/captcha.vue'
+  import Captcha from '@/components/Captcha.vue'
   @Component({
     components: {Captcha}
   })

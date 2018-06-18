@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --report",
+    "serve": "NODE_ENV=developement vue-cli-service serve",
+    "build": "NODE_ENV=production vue-cli-service build --report",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "NODE_ENV=test vue-cli-service test:e2e --headless"

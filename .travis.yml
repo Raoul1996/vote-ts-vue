@@ -32,7 +32,7 @@ script:
 # 6. 最后执行
 after_success:
 - npm run build
-- codecov
+- codecov -t $CODECOV_TOKEN
 - ./qshell qupload 16 .qshell.json
 # 移动到打包好的目录中
 - cd ./dist

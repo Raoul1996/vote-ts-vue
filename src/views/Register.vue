@@ -23,7 +23,7 @@
   import {Component, Vue} from 'vue-property-decorator'
   import {Action} from 'vuex-class'
   import {lazyGoto} from '@/utils'
-  import Captcha from '@/components/captcha.vue'
+  import Captcha from '@/components/Captcha.vue'
 
   @Component({
     components: {Captcha}
