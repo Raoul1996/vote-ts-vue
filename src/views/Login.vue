@@ -2,10 +2,8 @@
     .login
         h1.title {{title}}
         el-form.card-border(:model="login", ref="login", :rules="rules")
-            el-form-item(label="email", prop="email")
-                el-input(v-model="login.email", placeholder="请输入邮箱")
-            el-form-item(label="password", prop="pwd")
-                el-input(type="password", v-model="login.pwd", placeholder="请输入密码", auto-complete="on")
+            el-form-item(v-for = "item in loginField.items", :label="item.label", :prop="item.prop", :key="item.label")
+                el-input(:type="item.type", v-model="login[item.model]", :placeholder="item.placeholder")
             el-form-item(label="captcha", prop="captcha")
                 div.captcha-wrapper
                     el-input.captcha-input(@keyup.native.enter="submitLoginForm", v-model="login.captcha", placeholder="请输入验证码", type="text")
@@ -23,6 +21,8 @@
   import {UserInfo} from '@/store/state'
   import {lazyGoto} from '@/utils'
   import Captcha from '@/components/Captcha.vue'
+  import config from '@/config'
+
   @Component({
     components: {Captcha}
   })
@@ -31,25 +31,26 @@
     @Mutation private loginLoading!: () => void
     @State private user!: UserInfo
     private version: number = 1
+    private loginField: any = config.loginField
     private login: any = {
       email: '',
       pwd: null,
       captcha: '',
       client: 1
     }
-    private rules: object = {
-      email: [
-        {required: true, message: '请填写邮箱', trigger: 'blur'},
-        {type: 'email', message: '请填写正确的邮箱', trigger: 'blur'}
-      ],
-      pwd: [
-        {required: true, message: '请填写密码', trigger: 'blur'},
-        {min: 6, message: '密码需要大于 6 位', trigger: 'blur'}
-      ],
-      captcha: [
-        {required: true, message: '请填写验证码', trigger: 'blur'}
-      ]
+
+    private get rules (): object {
+      const rules: object[] = []
+      this.loginField.items.forEach((item: any) => {
+        rules[item.prop] = item.validation
+      })
+      return Object.assign({}, rules, {
+        captcha: [
+          {required: true, message: '请填写验证码', trigger: 'blur'}
+        ]
+      })
     }
+
     private msgFlag: boolean = true
     private title: string = 'Sign in to Voter'
 
@@ -66,9 +67,9 @@
 
     private submitLoginForm () {
       (this.$refs.login as any).validate(async (valid: boolean) => {
-        const {email, pwd, captcha} = this.login
         this.version = this.version + 1
         if (valid) {
+          const {email, pwd, captcha} = this.login
           this.loginAction({email, pwd, captcha}).then(async () => {
             this.$message({
               type: 'success',

@@ -2,20 +2,14 @@
     .register
         h1.title {{title}}
         el-form.card-border(:model="register",  ref="register", :rules="rules")
-            el-form-item(label="name", prop="name")
-                el-input(v-model="register.name", placeholder="Pick a name")
-            el-form-item(label="email", prop="email")
-                el-input(v-model="register.email", placeholder="Input Your email")
-            el-form-item(label="mobile", prop="mobile")
-                el-input(v-model="register.mobile", placeholder="Pick a mobile")
-            el-form-item(label="password", prop="pwd")
-                el-input(type="password", v-model="register.pwd", auto-complete="off", placeholder="Create a password")
+            el-form-item(v-for = "item in regField.items", :label="item.label", :prop="item.prop", :key="item.label")
+                el-input(:type="item.type", v-model="register[item.model]", :placeholder="item.placeholder")
             el-form-item(label="confirm", prop="confirm")
-                el-input(type="password", @keyup.native.enter="submitRegisterForm", v-model="register.confirm", auto-complete="off", placeholder="Confirm your password")
+                el-input(type="password", v-model="register.confirm", auto-complete="off", placeholder="Confirm your password")
             el-form-item(label="captcha", prop="captcha")
                 div.captcha-wrapper
-                    el-input.captcha-input(v-model="register.captcha", placeholder="请输入验证码", type="text")
-                    captcha.captcha
+                    el-input.captcha-input(v-model="register.captcha", @keyup.native.enter="submitRegisterForm", placeholder="请输入验证码", type="text")
+                    captcha.captcha(:version="version")
             el-form-item
                 el-button.register-button(size="middle", type="primary", @click="submitRegisterForm") Sign up for Voter
 </template>
@@ -24,12 +18,15 @@
   import {Action} from 'vuex-class'
   import {lazyGoto} from '@/utils'
   import Captcha from '@/components/Captcha.vue'
+  import config from '@/config'
 
   @Component({
     components: {Captcha}
   })
   export default class Register extends Vue {
     @Action public RegisterAction!: (data: object) => any
+    private regField: any = config.regField
+    private version: number = 1
     private register: any = {
       name: '',
       mobile: '',
@@ -39,43 +36,37 @@
       confirm: '',
       token: false
     }
-    private rules: object = {
-      name: [
-        {required: true, message: '请取一个用户名', trigger: 'blur'}
-      ],
-      email: [
-        {required: true, message: '请填写邮箱', trigger: 'blur'},
-        {type: 'email', message: '请填写正确的邮箱', trigger: 'blur'}
-      ],
-      mobile: [
-        {required: true, message: '请填写手机号码', trigger: 'blur'},
-        {len: 11, message: '请填写 11 位手机号码', trigger: 'blur'}
-      ],
-      pwd: [
-        {required: true, message: '请填写密码', trigger: 'blur'},
-        {min: 6, message: '密码需要大于 6 位', trigger: 'blur'}
-      ],
-      captcha: [
-        {required: true, message: '请填写验证码', trigger: 'blur'}
-      ],
-      confirm: [
-        {required: true, message: '请填写密码', trigger: 'blur'},
-        {
-          validator: (rule: any, value: any, callback: any) => {
-            const {register} = this
-            if (value !== register.pwd) {
-              callback(new Error('两次输入密码不一致!'))
-            } else {
-              callback()
-            }
-          }, trigger: 'blur'
-        }
-      ]
+
+    private get rules (): object {
+      const rules: object[] = []
+      this.regField.items.forEach((item: any) => {
+        rules[item.prop] = item.validation
+      })
+      return Object.assign({}, rules, {
+        captcha: [
+          {required: true, message: '请填写验证码', trigger: 'blur'}
+        ],
+        confirm: [
+          {required: true, message: '请填写密码', trigger: 'blur'},
+          {
+            validator: (rule: any, value: any, callback: any) => {
+              const {register} = this
+              if (value !== register.pwd) {
+                callback(new Error('两次输入密码不一致!'))
+              } else {
+                callback()
+              }
+            }, trigger: 'blur'
+          }
+        ]
+      })
     }
+
     private title: string = 'register page'
 
     private submitRegisterForm () {
       (this.$refs.register as any).validate(async (valid: boolean) => {
+        this.version = this.version + 1
         if (valid) {
           const {name, email, mobile, pwd, confirm, captcha} = this.register
           this.RegisterAction({name, email, mobile, pwd, confirm, captcha}).then(async () => {
