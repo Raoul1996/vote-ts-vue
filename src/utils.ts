@@ -2,7 +2,7 @@ import config from '@/config.ts'
 
 const baseUrl = config.url.baseUrl
 export const getAuthToken = () => window.localStorage.getItem('token')
-export const validateResp = (code: number) => [200, 304].indexOf(code) !== -1
+export const validateResp = (code: number) => [0].indexOf(code) !== -1
 export const ApiMaker = (path: string) => {
   let url = baseUrl
   if (baseUrl[baseUrl.length - 1] !== '/') {

@@ -122,7 +122,7 @@ npm i -D pug pug-plain-loader
 <style lang="less" scoped></style> 
 ```
 
-### use vuex-class && vue-property-decorator in vue
+### use [vuex-class](https://github.com/ktsn/vuex-class/) && [vue-property-decorator](https://github.com/kaorun343/vue-property-decorator) in vue
 
 * install `vuex-class` && `vue-property-decorator` as dependencies
 

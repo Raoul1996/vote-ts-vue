@@ -1,7 +1,7 @@
 import * as Axios from 'axios'
-
+import {Message} from 'element-ui'
 import config from '@/config'
-import router from '@/router'
+import codeMap from './codeMap'
 import {getAuthToken, validateResp} from '@/utils'
 
 const baseURL = config.url.baseUrl
@@ -38,8 +38,13 @@ instance.interceptors.request.use((config: any) => {
 
 instance.interceptors.response.use((config: any) => {
     if (validateResp(config.data.code)) {
-      return config.data
+      return config.data.data
     } else {
+      Message({
+        type: 'error',
+        showClose: true,
+        message: `${(codeMap[config.data.code] || config.data.data || 'unKnowError').toString()}: ${config.data.code}`
+      })
       return Promise.reject(config)
     }
   }, (err: any) => {
@@ -92,6 +97,11 @@ instance.interceptors.response.use((config: any) => {
           err.message = `连接错误${status}`
       }
     }
+    Message({
+      type: 'error',
+      showClose: true,
+      message: err.message || '连接到服务器失败'
+    })
     return Promise.reject(err)
   }
 )
