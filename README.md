@@ -74,7 +74,10 @@ more information can see [egg documents -- deployment](https://eggjs.org/zh-cn/c
 
 ### configure tarvis-ci && upload the static resource to CDN 
 
+*only when some commit push to the master branch, travis will clone the repos and build, then deploy to the server*
+
 * initial repo by travis command tools
+
 ```shell
 # travis login via github email and password
 travis login
@@ -194,4 +197,18 @@ more inof can't see the [login component](src/views/Login.vue) and [captcha comp
     proxy_redirect off;
   }
  ``` 
+ 
+ ### configure [circle-ci](https://circleci.com/)
+ 
+ *add circle-ci for unit-test*
+ * the document of circle-ci is awesome, just use the default configuration file is enough.
+ * use circle-ci version 2
+ 
+ ```shell
+ # create the .circleci dir
+ mkdir .circleci
+ 
+ # create the config.yml
+ touch config.yml
+ ```
  

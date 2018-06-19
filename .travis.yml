@@ -15,6 +15,7 @@ before_install:
 - echo -e "Host 123.207.252.230 \n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - chmod +x qshell
 - ./qshell account $ak $sk
+- git checkout master
 install:
 # - npm i -g codecov
 - npm i -g npm
