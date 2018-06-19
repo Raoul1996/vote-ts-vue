@@ -27,7 +27,7 @@ before_script:
 script:
 # 编译项目到 dist 文件夹
 - npm run lint
-- npm run test:unit
+#- npm run test:unit
 #- cypress run --record --key 669a615a-38b3-4bf7-b2f2-e644dc82588e
 # 5. 执行 script 脚本成功之后执行
 # 6. 最后执行
@@ -49,4 +49,4 @@ branches:
 env:
   global:
     - server="ubuntu@123.207.252.230"
-    - CODECOV_TOKEN="1b525199-31ab-48a5-977c-1941dfe3d9ee"
+#    - CODECOV_TOKEN="1b525199-31ab-48a5-977c-1941dfe3d9ee"
