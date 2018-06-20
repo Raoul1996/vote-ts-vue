@@ -172,43 +172,60 @@ more inof can't see the [login component](src/views/Login.vue) and [captcha comp
 
 ### configure nginx proxy-pass rules to avoid cross origin
 
- Before use `typescript` and  `vue` reconstruct the vote (login && register) application, 
- my front-end of the application is deployed on [votes.raoul1996.cn](https://votes.raoul1996.cn), 
- and the back-end of the application deployed on the [api.raoul1996.cn](https://api.raoul1996.cn), 
- so I have to add some extra response headers, 
- like the `Access-Control-Allow-Origin`, `Access-Controll-Allow-Methods` and etc.
- more info can read [this blog](https://raoul1996.github.io/2018/03/04/cors-session.html) edited by myself three month ago.
- now I want to use the `nginx` to avoid the cross origin statement, only use the `proxy-pass` and `rewrite`
+Before use `typescript` and  `vue` reconstruct the vote (login && register) application, 
+my front-end of the application is deployed on [votes.raoul1996.cn](https://votes.raoul1996.cn), 
+and the back-end of the application deployed on the [api.raoul1996.cn](https://api.raoul1996.cn), 
+so I have to add some extra response headers, 
+like the `Access-Control-Allow-Origin`, `Access-Controll-Allow-Methods` and etc.
+more info can read [this blog](https://raoul1996.github.io/2018/03/04/cors-session.html) edited by myself three month ago.
+now I want to use the `nginx` to avoid the cross origin statement, only use the `proxy-pass` and `rewrite`
 
- About one month ago, I print the nginx configuration file of `votes.raoul1996.cn` on the [vue-vote](https://github.com/Raoul1996/vue-vote#20180102-20180103) to show how to configure the `ssl_certificate`, If you like, you can have a try.
- 
- ```config
-  # use regexp to match the rquest which begining with /api/
-  location ~* ^/api/ {
-    proxy_set_header X-Url-Scheme $scheme;
-    proxy_set_header Connection "upgrade";
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-For-Forwarded-Proto $https;
-    proxy_set_header Host $host;
-    # remove the /api/ preset. eg: /api/captcha/ -> /captcha/
-    rewrite ^/api/(.*) /$1 break;
-    # reverse proxy
-    proxy_pass http://127.0.0.1:12012;
-    proxy_redirect off;
-  }
- ``` 
- 
- ### configure [circle-ci](https://circleci.com/)
- 
- *add circle-ci for unit-test*
- * the document of circle-ci is awesome, just use the default configuration file is enough.
- * use circle-ci version 2
- 
- ```shell
- # create the .circleci dir
- mkdir .circleci
- 
- # create the config.yml
- touch config.yml
- ```
- 
+About one month ago, I print the nginx configuration file of `votes.raoul1996.cn` on the [vue-vote](https://github.com/Raoul1996/vue-vote#20180102-20180103) to show how to configure the `ssl_certificate`, If you like, you can have a try.
+
+```lua
+# use regexp to match the rquest which begining with /api/
+location ~* ^/api/ {
+proxy_set_header X-Url-Scheme $scheme;
+proxy_set_header Connection "upgrade";
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header X-Forwarded-For-Forwarded-Proto $https;
+proxy_set_header Host $host;
+# remove the /api/ preset. eg: /api/captcha/ -> /captcha/
+rewrite ^/api/(.*) /$1 break;
+# reverse proxy
+proxy_pass http://127.0.0.1:12012;
+proxy_redirect off;
+}
+``` 
+
+### configure [circle-ci](https://circleci.com/)
+
+*add circle-ci for unit-test*
+* the document of circle-ci is awesome, just use the default configuration file is enough.
+* use circle-ci version 2
+
+```shell
+# create the .circleci dir
+mkdir .circleci
+
+# create the config.yml
+touch config.yml
+```
+### configure qiniu CDN(It's just a fun, hhhhh)
+*Don't use it. Because it's very foolish.*
+because of [same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy), google-chrome browser will deny the request with http scheme form the [https://votes.raoul1996.cn](https://votes.raoyl1996.cn). On [qiniu](https://portal.qiniu.com)，only http test domain is free. The developer have to pay for it.
+But we can't use Reverse Proxy via Nginx:
+```lua
+location ~* ^/assets/ {
+# Per RFC2616 - 1 year maximum expiry
+# http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
+expires 1y;
+access_log  off;
+log_not_found off;
+rewrite ^/assets/(.*) /$1 break;
+proxy_pass http://p5j565es2.bkt.clouddn.com;
+proxy_redirect off;
+}
+```
+More info about [Forward proxy, Reverse proxy](https://raoul1996.github.io/2018/06/19/nginx-cors-soultion.html#srhan)
+More info about [Nginx rewrite and proxy_pass](https://raoul1996.github.io/2018/06/19/nginx-cors-soultion.html#srhan)
