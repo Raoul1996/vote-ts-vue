@@ -1,6 +1,6 @@
 module.exports = {
   // if https://xxx.com/sub-path, config here
-  baseUrl: process.env.NODE_ENV === 'production' ? 'https://asset.raoul1996.cn/' : '',
+  baseUrl: process.env.NODE_ENV === 'production' ? '/assets' : '',
   // default is dist dir
   outputDir: 'dist',
   pages: {
