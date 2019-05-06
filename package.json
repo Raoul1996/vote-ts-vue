@@ -8,7 +8,9 @@
     "build:report": "vue-cli-service build --report",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e --headless"
+    "test:e2e": "vue-cli-service test:e2e --headless",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "async-validator": "^1.8.2",
@@ -21,7 +23,8 @@
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
     "vuex-class": "^0.3.1",
-    "vuex-persist": "^1.4.0"
+    "vuex-persist": "^1.4.0",
+    "snyk": "^1.161.1"
   },
   "devDependencies": {
     "@types/chai": "^4.1.0",
@@ -82,5 +85,6 @@
       "vue-cli-service lint",
       "git add"
     ]
-  }
+  },
+  "snyk": true
 }
